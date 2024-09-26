@@ -1,5 +1,5 @@
-# 8-Week-SQL-Challange---Case-Study-5
-### Data_Mart
+# 8 Week SQL Challange Case Study 5
+## Data_Mart 🛒 
 Source of data and questions: https://8weeksqlchallenge.com/case-study-5/
 
 ```sql
