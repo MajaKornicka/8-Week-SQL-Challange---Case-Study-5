@@ -1,4 +1,3 @@
-```sql
 --                      1. Data Cleansing Steps
 
 
@@ -41,4 +40,4 @@ SELECT weekday, COUNT(weekday)
 FROM weekday
 GROUP BY weekday
 
-```
+
