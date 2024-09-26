@@ -8,9 +8,9 @@ Source of data and questions: https://8weeksqlchallenge.com/case-study-5/
 
 
 
-------------------------------------------------------------------------------------------
-# 1. Data Cleansing Steps
 
+### 1. Data Cleansing Steps
+----------------------------------------------------------------------------------------------------------
 ```sql
 CREATE VIEW clean_weekly_sales AS
 SELECT CONVERT(date, week_Date, 5) as date, 
@@ -39,7 +39,8 @@ FROM clean_weekly_sales
 <img width="346" alt="tabela clean_weekly_sales_duża" src="https://github.com/user-attachments/assets/9653b948-d6e4-4896-b7ee-c16ada45c09a">
 
 
-# 2. Data Exploration
+### 2. Data Exploration
+----------------------------------------------------------------------------------------------------------
 
 1. What day of the week is used for each week_date value?
 
@@ -57,6 +58,8 @@ FROM clean_Weekly_sales
 |day_of_the_week|
 |---------------|
 |Monday|
+
+----------------------------------------------------------------------------------------------------------
 
 2. What range of week numbers are missing from the dataset?
 
@@ -78,6 +81,26 @@ Range is from 1 to 12 and then from 37 to 52.
 |...|
 |35|
 |36|
+
+
+----------------------------------------------------------------------------------------------------------
+
+
+3. How many total transactions were there for each year in the dataset?
+
+```sql
+SELECT  year, SUM(transactions) as total_transactions
+FROM clean_weekly_sales
+GROUP BY year
+ORDER BY year
+```
+|year|total_transactions|
+|----|--------------|
+|2018|346406460|
+|2019|365639285|
+|2020|375813651|
+
+----------------------------------------------------------------------------------------------------------
 
 
 🛒🛒🛒
