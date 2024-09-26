@@ -94,6 +94,8 @@ FROM clean_weekly_sales
 GROUP BY year
 ORDER BY year
 ```
+
+**Solution**
 |year|total_transactions|
 |----|--------------|
 |2018|346406460|
@@ -117,7 +119,92 @@ FROM A
 GROUP BY region, month_number
 ORDER BY region, month_number
 ```
+
+**Solution**
+
 <img width="126" alt="regions_months_sales" src="https://github.com/user-attachments/assets/6c9b511d-fad5-467f-a050-6c6778265c9e">
+
+----------------------------------------------------------------------------------------------------------
+
+5. What is the total count of transactions for each platform?
+
+```sql
+SELECT platform, SUM(transactions) AS transactions_count
+FROM data_mart.weekly_sales
+GROUP BY platform
+```
+**Solution**
+
+|platform|transactions_count|
+|----|--------------|
+|Shopify|5925169|
+|Retail|1081934227|
+
+
+----------------------------------------------------------------------------------------------------------
+
+
+6.  What is the percentage of sales for Retail vs Shopify for each month?
+
+----------------------------------------------------------------------------------------------------------
+
+7. What is the percentage of sales by demographic for each year in the dataset?
+
+```sql
+WITH YS AS (
+SELECT year, demographic, sales, SUM(CAST(sales AS bigint)) OVER (PARTITION BY year ORDER BY year) as yearly_sum
+FROM clean_weekly_sales),
+
+YSD AS (
+SELECT year, demographic, SUM(CAST(sales AS BIGINT)) OVER(PARTITION BY demographic, year ORDER BY year) as sales_by_dem,
+		ROUND( CAST(SUM(CAST(sales AS BIGINT)) OVER(PARTITION BY demographic, year ORDER BY year)AS FLOAT)
+		/ CAST(yearly_sum AS FLOAT) *100,2) as perc
+FROM ys)
+
+SELECT *
+FROM ysd
+GROUP BY perc, sales_by_dem, demographic,year
+ORDER BY year
+
+```
+**Solution**
+
+
+<img width="204" alt="demo" src="https://github.com/user-attachments/assets/10cb6d68-beac-41da-b6dc-7f38886499e3">
+
+----------------------------------------------------------------------------------------------------------
+
+8. Which age_band and demographic values contribute the most to Retail sales?
+
+```sql
+SELECT age_band, demographic, SUM(CAST(sales AS BIGINT)) AS retail_sales
+FROM clean_weekly_sales
+WHERE platform = 'Retail'
+GROUP BY age_band, demographic
+ORDER BY 3 DESC
+```
+
+**Solution**
+
+<img width="204" alt="retail sales" src="https://github.com/user-attachments/assets/aa51502a-c335-4e36-81ee-41edb33ad235">
+
+----------------------------------------------------------------------------------------------------------
+
+9. Can we use the avg_transaction column to find the average transaction size for each year for Retail vs Shopify? If not - how would you calculate it instead?
+
+```sql
+SELECT year, platform, ROUND(CAST(SUM(CAST(sales AS BIGINT))AS FLOAT) / CAST(SUM(transactions)AS FLOAT),2) as avg_transaction
+FROM clean_weekly_sales
+GROUP BY year, platform
+ORDER BY year, platform
+```
+
+**Solution**
+
+<img width="160" alt="avg_trans" src="https://github.com/user-attachments/assets/2dc2b73b-fecc-44b1-b4bb-db67536a7776">
+
+
+
 
 
 🛒🛒🛒
