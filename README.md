@@ -35,7 +35,6 @@ SELECT*
 FROM clean_weekly_sales
 ```
 
-<img width="346" alt="tabela clean_weekly_sales" src="https://github.com/user-attachments/assets/1b715e6d-7037-453c-9a61-dd1f500337b3" =250x250>
 
 <img width="346" alt="tabela clean_weekly_sales_duża" src="https://github.com/user-attachments/assets/9653b948-d6e4-4896-b7ee-c16ada45c09a">
 
@@ -59,7 +58,26 @@ FROM clean_Weekly_sales
 |---------------|
 |Monday|
 
+2. What range of week numbers are missing from the dataset?
 
+```sql
+SELECT DISTINCT week AS week_number
+FROM clean_weekly_sales
+ORDER BY week
+```
+
+We have 52 weeks in total in a year, this dataset contains only 24, so 52-24 = 28 weeks are missing.
+Range is from 1 to 12 and then from 37 to 52.
+
+**Solution**
+
+|week_number|
+|---------------|
+|13|
+|14|
+|...|
+|35|
+|36|
 
 
 🛒🛒🛒
