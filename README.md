@@ -103,4 +103,21 @@ ORDER BY year
 ----------------------------------------------------------------------------------------------------------
 
 
+4. What is the total sales for each region for each month?
+
+```sql
+WITH A AS (
+
+SELECT region, month(CONVERT(date, week_date,5))as month_number,sales
+FROM data_mart.weekly_sales
+)
+
+SELECT region, month_number, SUM(CAST(sales AS BIGINT)) AS total_sales
+FROM A
+GROUP BY region, month_number
+ORDER BY region, month_number
+```
+<img width="126" alt="regions_months_sales" src="https://github.com/user-attachments/assets/6c9b511d-fad5-467f-a050-6c6778265c9e">
+
+
 🛒🛒🛒
