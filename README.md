@@ -2,6 +2,11 @@
 ## Data_Mart 🛒 
 Source of data and questions: https://8weeksqlchallenge.com/case-study-5/
 
+
+![Uploading data mart.png…]()
+
+
+
 ```sql
 --                      1. Data Cleansing Steps
 
