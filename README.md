@@ -262,4 +262,41 @@ FROM before_after_changes
 |----|----|
 |-26884188|-1,15|
 
+----------------------------------------------------------------------------------------------------------
+
+2. What about the entire 12 weeks before and after?
+
+```sql
+
+WITH packaging_sales AS(
+
+SELECT date, week, CAST(SUM(sales)AS BIGINT) as total_sales
+FROM clean_weekly_sales
+WHERE (week BETWEEN 13 AND 37) 
+AND year = 2020
+GROUP BY date, week
+),
+
+before_after_changes AS (
+
+SELECT CAST(SUM(CASE WHEN week BETWEEN 13 and 24 THEN total_sales END)AS BIGINT) as before_packaging_sales,
+	   CAST(SUM(CASE WHEN week BETWEEN 25 and 37 THEN total_sales END)AS BIGINT) as after_packaging_sales
+FROM packaging_sales)
+
+SELECT after_packaging_sales - before_packaging_sales AS sales_variance,
+		ROUND(100* 
+			(CAST(after_packaging_sales AS FLOAT) - CAST(before_packaging_sales AS FLOAT))
+			/CAST(before_packaging_sales AS FLOAT),2) as variance_percentage
+FROM before_after_changes
+```
+
+
+**Solution**
+
+|sales_variance|variance_percentage|
+|----|----|
+|-152325394|-2,14|
+
+
+   
 🛒🛒🛒
