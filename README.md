@@ -3,8 +3,10 @@
 Source of data and questions: https://8weeksqlchallenge.com/case-study-5/
 
 
+<p align="center">
+<img src="https://8weeksqlchallenge.com/images/case-study-designs/5.png" alt="Image" width="450" height="450">
 
-![data mart](https://github.com/user-attachments/assets/9904d59e-0433-4e1f-bd7e-8fba762e51f8)
+
 
 
 
