@@ -3,6 +3,12 @@
 Source of data and questions: https://8weeksqlchallenge.com/case-study-5/
 
 
+
+Whenever I encountered a problem, I looked for a solution through Katie Huangs' answers: https://github.com/katiehuangx  (thanks Katie!)
+
+
+
+
 <p align="center">
 <img src="https://8weeksqlchallenge.com/images/case-study-designs/5.png" alt="Image" width="450" height="450">
 
