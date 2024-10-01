@@ -213,6 +213,53 @@ ORDER BY year, platform
 
 
 
+### 3. Before & After Analysis
+----------------------------------------------------------------------------------------------------------
 
+1. What is the total sales for the 4 weeks before and after 2020-06-15? What is the growth or reduction rate in actual values and percentage of sales?
+
+```sql
+
+SELECT week
+FROM clean_weekly_sales
+WHERE date = '2020-06-15'
+```
+|week|
+|----|
+|25|
+
+
+Changes happened in week 25, so 4 weeks before change will be 21-24 and 4 weeks after will be 25-28.
+
+
+```sql
+WITH packaging_sales AS(
+
+SELECT date, week, CAST(SUM(sales)AS BIGINT) as total_sales
+FROM clean_weekly_sales
+WHERE (week BETWEEN 21 AND 28) 
+AND year = 2020
+GROUP BY date, week
+),
+
+before_after_changes AS (
+
+SELECT CAST(SUM(CASE WHEN week BETWEEN 21 and 24 THEN total_sales END)AS BIGINT) as before_packaging_sales,
+	   CAST(SUM(CASE WHEN week BETWEEN 25 and 28 THEN total_sales END)AS BIGINT) as after_packaging_sales
+FROM packaging_sales)
+
+SELECT after_packaging_sales - before_packaging_sales AS sales_variance,
+		ROUND(100* 
+			(CAST(after_packaging_sales AS FLOAT) - CAST(before_packaging_sales AS FLOAT))
+			/CAST(before_packaging_sales AS FLOAT),2) as variance_percentage
+FROM before_after_changes
+```
+
+
+**Solution**
+
+|sales_variance|variance_percentage|
+|----|----|
+|-26884188|-1,15|
 
 🛒🛒🛒
